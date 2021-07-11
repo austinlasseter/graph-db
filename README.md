@@ -44,7 +44,7 @@ This python module is activated by running `main.py`.
 
 In the `testing` folder there is a script `covid19-calculator.sh` that demonstrates the process for one repository, ID #267690820 with name [covid19-calculator](https://api.github.com/repos/deptofdefense/covid19-calculator).
 
-Inputs for the analysis are not stored in the `clonewars-datascience` directory. The expectation is that they are stored in a parent directory outside of the current directory, according to a file structure laid out in `setup_analysis.py`. The necessaryy `json.gz` files which are the initial inputs should be downloaded from [Github Achive](https://www.gharchive.org/) using a shell command from the appropriate `data` folder, such as:
+Inputs for the analysis are not stored in the `clonewars-datascience` directory. The expectation is that they are stored in a parent directory outside of the current directory, according to a file structure laid out in `setup_analysis.py`. The necessary `json.gz` files which are the initial inputs should be downloaded from [Github Achive](https://www.gharchive.org/) using a shell command from the appropriate `data` folder, such as:
 
 ```
 wget https://data.gharchive.org/2015-01-{01..31}-{0..23}.json.gz
@@ -126,6 +126,11 @@ How does one [load data into a property-graph database](https://stackoverflow.co
 - Write a Gremlin Script to execute in the Gremlin Console to load your data.
 - If you have an especially large graph, then consider BulkLoaderVertexProgram and Hadoop/Spark
 - Consider the bulk loading tools available to the graph database you have chosen.
+
+
+## Visualization
+
+- The image was created using the [python-igraph](https://igraph.org/python/) visualization library
 
 ## Additional Resources
 
