@@ -1,37 +1,46 @@
 # Graph Database Project
 
+The purpose of this project was to demonstrate that connections on github (repos and users) could be
+analyzed using a graph database and visualized as a graph network.
+
+A series of json.gz files representing github connections were downloaded from github archive.
+Each file was processed and converted to Apache Gremlin format. Gremlin files were then loaded
+into Amazon Neptune for further analysis.
+
+View final visualization here: http://austinlasseter.com/amazon_neptune/
+
 ## Folder structure
 
 ```
 └──network_graph_app
       └──main.py
-          ├──helpers
-                  ├──    __init__.py
-                  ├──setup_analysis.py
-                  ├──process_json_files.py
-                  ├──previz_prep.py
-                  └──make_viz.py
-          └──outputs
-                  └──various html files
-          ├──internal
-                  └──various jupyter notebooks
-          └──testing
-                  └──various shell scripts for running `main.py`
+      ├──helpers
+              ├──    __init__.py
+              ├──setup_analysis.py
+              ├──process_json_files.py
+              ├──previz_prep.py
+              └──make_viz.py
+      └──outputs
+              └──various html files
+      ├──internal
+              └──various jupyter notebooks
+      └──testing
+              └──various shell scripts for running `main.py`
 └──gremlin_data_format
       └──main.py
-          ├──helpers
-                  ├──    __init__.py
-                  ├──setup_analysis.py
-                  ├──process_json_files.py
-                  ├──load-csv-files.groovy
-                  └──query-gremlin.groovy
-          └──outputs
-                  └──two csv files
-          └──internal
-                  └──various jupyter notebooks
+      ├──helpers
+              ├──    __init__.py
+              ├──setup_analysis.py
+              ├──process_json_files.py
+              ├──load-csv-files.groovy
+              └──query-gremlin.groovy
+      └──outputs
+              └──two csv files
+      └──internal
+              └──various jupyter notebooks
 ```
 
-## Project 1. Demonstrate network relationships in event data (#905)
+## Project 1. Demonstrate network relationships in event data
 
 
 This project corresponds to the `network_graph_app` directory. Folder structure is outlined above.
@@ -42,9 +51,9 @@ This python module is activated by running `main.py`.
 - It also receives the ID of a "prime" repo identified in the [Github API](https://api.github.com) that has been flagged for investigation.
 - It produces an html file displaying a network graph of the relationships between repos and actors, starting with the prime repo, up to the third circle of connectivity. This html file is suitable for inclusion in a static website or other promotional material. Example html files are provided in the `outputs` file.
 
-In the `testing` folder there is a script `covid19-calculator.sh` that demonstrates the process for one repository, ID #267690820 with name [covid19-calculator](https://api.github.com/repos/deptofdefense/covid19-calculator).
+In the `testing` folder there is a script `covid19-calculator.sh` that demonstrates the process for one repository.
 
-Inputs for the analysis are not stored in the `clonewars-datascience` directory. The expectation is that they are stored in a parent directory outside of the current directory, according to a file structure laid out in `setup_analysis.py`. The necessary `json.gz` files which are the initial inputs should be downloaded from [Github Achive](https://www.gharchive.org/) using a shell command from the appropriate `data` folder, such as:
+Inputs for the analysis are not stored in the primary directory. The expectation is that they are stored in a parent directory outside of the current directory, according to a file structure laid out in `setup_analysis.py`. The necessary `json.gz` files which are the initial inputs should be downloaded from [Github Achive](https://www.gharchive.org/) using a shell command from the appropriate `data` folder, such as:
 
 ```
 wget https://data.gharchive.org/2015-01-{01..31}-{0..23}.json.gz
@@ -53,7 +62,7 @@ wget https://data.gharchive.org/2015-01-{01..31}-{0..23}.json.gz
 
 
 
-## Project 2. Demonstrate that event data can be transformed to Gremlin format (#906)
+## Project 2. Demonstrate that event data can be transformed to Gremlin format
 
 This project corresponds to the `gremlin_data_format` directory. Folder structure is outlined above.
 
@@ -63,7 +72,7 @@ This python module is activated by running `main.py`.
 - It produces two CSV files, ready for uploading to AWS Neptune.
 - It also produces example query results in Gremlin, designed for a use-case similar to our own.
 
-As with the previous project, inputs for the analysis are not stored in the `clonewars-datascience` directory, but rather in the parent directory laid out in `setup_analysis.py`.
+As with the previous project, inputs for the analysis are not stored in the primary directory, but rather in the parent directory laid out in `setup_analysis.py`.
 
 According the [AWS Neptune documentation](https://docs.aws.amazon.com/neptune/latest/userguide/bulk-load-tutorial-format-gremlin.html), to load Apache TinkerPop Gremlin data using the CSV format, you must specify the vertices and the edges in separate files, with names similar to `vertex.csv` and `edge.csv`. The required and allowed system column headers are different for vertex files and edge files, as follows:
 
@@ -100,7 +109,7 @@ Add the gremlin console to PATH:
 export PATH=/usr/local/apache-tinkerpop-gremlin-console-3.4.10/bin/gremlin.sh:$PATH
 ```
 
-For the purpose of this project, I installed the Gremlin console in the parent directory of the `clonewars-datascience` directory. When you install the Gremlin console, it create a directory called `apache-tinkerpop-gremlin-console-3.4.10` which has a subdirectory called `data`. This is where I stored all data and outputs for my analysis.
+For the purpose of this project, I installed the Gremlin console in the parent directory of the primary directory. When you install the Gremlin console, it create a directory called `apache-tinkerpop-gremlin-console-3.4.10` which has a subdirectory called `data`. This is where I stored all data and outputs for my analysis.
 
 Once installed, the Groovy console is initiated from the `apache-tinkerpop-gremlin-console-3.4.10` directory as follows:
 
